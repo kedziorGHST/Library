@@ -11,10 +11,10 @@ namespace LibraryData.Models
         public string ISBN { get; set; }
 
         [Required]
-        public int Author { get; set; }
+        public string Author { get; set; }
 
         [Required]
-        public Status DeweyIndex { get; set; }
+        public string DeweyIndex { get; set; }
 
     }
 }

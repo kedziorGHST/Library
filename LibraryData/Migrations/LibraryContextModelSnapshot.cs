@@ -196,19 +196,19 @@ namespace LibraryData.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int?>("HomeLibrayBranchId");
+                    b.Property<int?>("HomeLibraryBranchId");
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("LibrayCardId");
+                    b.Property<int?>("LibraryCardId");
 
                     b.Property<string>("TelephoneNumber");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HomeLibrayBranchId");
+                    b.HasIndex("HomeLibraryBranchId");
 
-                    b.HasIndex("LibrayCardId");
+                    b.HasIndex("LibraryCardId");
 
                     b.ToTable("Patrons");
                 });
@@ -234,14 +234,14 @@ namespace LibraryData.Migrations
                 {
                     b.HasBaseType("LibraryData.Models.LibraryAsset");
 
-                    b.Property<int>("Author");
+                    b.Property<string>("Author")
+                        .IsRequired();
 
-                    b.Property<int>("DeweyIndexId");
+                    b.Property<string>("DeweyIndex")
+                        .IsRequired();
 
                     b.Property<string>("ISBN")
                         .IsRequired();
-
-                    b.HasIndex("DeweyIndexId");
 
                     b.HasDiscriminator().HasValue("Book");
                 });
@@ -313,21 +313,13 @@ namespace LibraryData.Migrations
 
             modelBuilder.Entity("LibraryData.Models.Patron", b =>
                 {
-                    b.HasOne("LibraryData.Models.LibraryBranch", "HomeLibrayBranch")
+                    b.HasOne("LibraryData.Models.LibraryBranch", "HomeLibraryBranch")
                         .WithMany("Patrons")
-                        .HasForeignKey("HomeLibrayBranchId");
+                        .HasForeignKey("HomeLibraryBranchId");
 
-                    b.HasOne("LibraryData.Models.LibraryCard", "LibrayCard")
+                    b.HasOne("LibraryData.Models.LibraryCard", "LibraryCard")
                         .WithMany()
-                        .HasForeignKey("LibrayCardId");
-                });
-
-            modelBuilder.Entity("LibraryData.Models.Book", b =>
-                {
-                    b.HasOne("LibraryData.Models.Status", "DeweyIndex")
-                        .WithMany()
-                        .HasForeignKey("DeweyIndexId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LibraryCardId");
                 });
 #pragma warning restore 612, 618
         }
